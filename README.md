@@ -33,7 +33,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-An PowerShell script to get basic malware development tooling configured.
+A PowerShell script to get basic malware development tooling configured.
  - [x] Installs Visual Studio + Visual Studio Code
  - [x] Disables Windows Defender
  - [x] Installs debugging tools and utilities like SysInternals
