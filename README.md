@@ -4,10 +4,10 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<h3>Kali Build</h3>
+<h3>MalDev Build</h3>
 
 <p>
-  PowerShell script to get spin up malware development tooling.
+  PowerShell script to spin up malware development tooling.
   <br />
   <a href="#installation"><strong>Install »</strong></a>
 </p>
@@ -46,7 +46,7 @@ An PowerShell script to get basic malware development tooling configured.
 
 ### Installation
 
-Start with a clean Windowsali VM, then run `build.ps1`
+Start with a clean Windows VM, then run `build.ps1`
 ```bash
 
 ```
