@@ -24,16 +24,16 @@ Write-Output "Checking packages are valid...`n"
 foreach ($package in $inputPackages) {
     if ((choco find $package).Length -gt 2) {
         $validPackages = $validPackages + $package
-        Write-Output $package + ' - ok'
+        Write-Output "$package - ok"
     }
     else {
         $somePackageValidationFailed = $true
-        Write-Output $package + ' - failed'
+        Write-Output "$package - failed"
     }
 }
 Write-Output "`n"
 
-$choice = $null
+$choice = "y"
 if ($somePackageValidationFailed) {
     Write-Warning "Failed to find some packages"
 
@@ -53,5 +53,5 @@ try {
         choco install $package -y --acceptlicense
     }
 } catch {
-    Write-Error "Failure to install packages"
+    throw "Failure to install packages"
 }
