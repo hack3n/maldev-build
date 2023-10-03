@@ -40,7 +40,7 @@ if ($somePackageValidationFailed) {
 
 if ($choice -ne "y") {
     Write-Error "Verify your package list and try again"
-    Exit
+    return
 } 
 
 try {

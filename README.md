@@ -46,9 +46,10 @@ An PowerShell script to get basic malware development tooling configured.
 
 ### Installation
 
-Start with a clean Windows VM, then run `build.ps1`
-```bash
-
+Start with a clean Windows VM, then run `build.ps1`.
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process
+Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/hack3n/maldev-build/main/build.ps1")
 ```
 
 ## License
