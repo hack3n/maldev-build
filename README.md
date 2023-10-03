@@ -41,8 +41,8 @@ An PowerShell script to get basic malware development tooling configured.
 
 ### Built With
 
-[![Chocolatey][Chocolatey-img]][Chocolatey-url]
-
+ - [![Chocolatey][Chocolatey-img]][Chocolatey-url]
+ - Defender removal script ganked from https://github.com/jeremybeaume
 
 ### Installation
 

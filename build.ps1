@@ -61,7 +61,7 @@ catch {
 
 Write-Host "Removing defender"
 
-if(-Not $($(whoami) -eq "nt authority\system")) {
+if (-Not $($(whoami) -eq "nt authority\system")) {
     $IsSystem = $false
 
     # Elevate to admin (needed when called after reboot)
@@ -74,16 +74,18 @@ if(-Not $($(whoami) -eq "nt authority\system")) {
 
     # Elevate to SYSTEM if psexec is available
     $psexec_path = $(Get-Command PsExec -ErrorAction 'ignore').Source 
-    if($psexec_path) {
+    if ($psexec_path) {
         Write-Host "    [i] Elevate to SYSTEM"
         $CommandLine = " -i -s powershell.exe -ExecutionPolicy Bypass `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments 
         Start-Process -WindowStyle Hidden -FilePath $psexec_path -ArgumentList $CommandLine
         exit
-    } else {
+    }
+    else {
         Write-Host "    [i] PsExec not found, will continue as Administrator"
     }
 
-} else {
+}
+else {
     $IsSystem = $true
 }
 
@@ -95,7 +97,7 @@ Write-Host "    [+] Add exclusions"
 
 # Add the whole system in Defender exclusions
 
-67..90|foreach-object{
+67..90 | foreach-object {
     $drive = [char]$_
     Add-MpPreference -ExclusionPath "$($drive):\" -ErrorAction SilentlyContinue
     Add-MpPreference -ExclusionProcess "$($drive):\*" -ErrorAction SilentlyContinue
@@ -133,16 +135,18 @@ $need_reboot = $false
 # Sense : Advanced Protection Service
 
 $svc_list = @("WdNisSvc", "WinDefend", "Sense")
-foreach($svc in $svc_list) {
-    if($(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\$svc")) {
-        if( $(Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$svc").Start -eq 4) {
+foreach ($svc in $svc_list) {
+    if ($(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\$svc")) {
+        if ( $(Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$svc").Start -eq 4) {
             Write-Host "        [i] Service $svc already disabled"
-        } else {
+        }
+        else {
             Write-Host "        [i] Disable service $svc (next reboot)"
             Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$svc" -Name Start -Value 4
             $need_reboot = $true
         }
-    } else {
+    }
+    else {
         Write-Host "        [i] Service $svc already deleted"
     }
 }
@@ -154,25 +158,28 @@ Write-Host "    [+] Disable drivers"
 # wdboot : Boot Driver
 
 $drv_list = @("WdnisDrv", "wdfilter", "wdboot")
-foreach($drv in $drv_list) {
-    if($(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\$drv")) {
-        if( $(Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$drv").Start -eq 4) {
+foreach ($drv in $drv_list) {
+    if ($(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\$drv")) {
+        if ( $(Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$drv").Start -eq 4) {
             Write-Host "        [i] Driver $drv already disabled"
-        } else {
+        }
+        else {
             Write-Host "        [i] Disable driver $drv (next reboot)"
             Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$drv" -Name Start -Value 4
             $need_reboot = $true
         }
-    } else {
+    }
+    else {
         Write-Host "        [i] Driver $drv already deleted"
     }
 }
 
 # Check if service running or not
-if($(GET-Service -Name WinDefend).Status -eq "Running") {   
+if ($(GET-Service -Name WinDefend).Status -eq "Running") {   
     Write-Host "    [+] WinDefend Service still running (reboot required)"
     $need_reboot = $true
-} else {
+}
+else {
     Write-Host "    [+] WinDefend Service not running"
 }
 
@@ -183,7 +190,7 @@ if($(GET-Service -Name WinDefend).Status -eq "Running") {
 $link_reboot = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\disable-defender.lnk"
 Remove-Item -Force "$link_reboot" -ErrorAction 'ignore' # Remove the link (only execute once after reboot)
 
-if($need_reboot) {
+if ($need_reboot) {
     Write-Host "    [+] This script will be started again after reboot." -BackgroundColor DarkRed -ForegroundColor White
     
     $powershell_path = '"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"'
@@ -197,13 +204,14 @@ if($need_reboot) {
     $shortcut.WorkingDirectory = "$(Split-Path -Path $PSScriptRoot -Parent)"
     $shortcut.Save()
 
-} else {
+}
+else {
 
 
     ## STEP 4 : After reboot (we checked that everything was successfully disabled), make sure it doesn't come up again !
 
 
-    if($IsSystem) {
+    if ($IsSystem) {
 
         # Configure the Defender registry to disable it (and the TamperProtection)
         # editing HKLM:\SOFTWARE\Microsoft\Windows Defender\ requires to be SYSTEM
@@ -221,20 +229,22 @@ if($need_reboot) {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1
 
-    } else {
+    }
+    else {
         Write-Host "    [W] (Optional) Cannot configure registry (not SYSTEM)"
     }
 
 
-    if($MyInvocation.UnboundArguments -And $($MyInvocation.UnboundArguments.tolower().Contains("-delete"))) {
+    if ($MyInvocation.UnboundArguments -And $($MyInvocation.UnboundArguments.tolower().Contains("-delete"))) {
         
         # Delete Defender files
 
         function Delete-Show-Error {
             $path_exists = Test-Path $args[0]
-            if($path_exists) {
+            if ($path_exists) {
                 Remove-Item -Recurse -Force -Path $args[0]
-            } else {
+            }
+            else {
                 Write-Host "    [i] $($args[0]) already deleted"
             }
         }
@@ -250,12 +260,12 @@ if($need_reboot) {
         Delete-Show-Error "C:\Windows\System32\drivers\wd\"
 
         # Delete service registry entries
-        foreach($svc in $svc_list) {
+        foreach ($svc in $svc_list) {
             Delete-Show-Error "HKLM:\SYSTEM\CurrentControlSet\Services\$svc"
         }
 
         # Delete drivers registry entries
-        foreach($drv in $drv_list) {
+        foreach ($drv in $drv_list) {
             Delete-Show-Error "HKLM:\SYSTEM\CurrentControlSet\Services\$drv"
         }
     }
