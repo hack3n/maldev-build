@@ -9,7 +9,9 @@ Write-Output @"
 
 "@
 
-if([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -notmatch "S-1-5-32-544")){
+$id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object System.Security.Principal.WindowsPrincipal($id)
+if(-Not $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)){
     throw "This script must be run with elevated privileges."
 }
 
