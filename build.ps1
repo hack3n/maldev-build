@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 Write-Output @"
 
 ███╗░░░███╗░█████╗░██╗░░░░░██████╗░███████╗██╗░░░██╗░░░░░░██████╗░██╗░░░██╗██╗██╗░░░░░██████╗░
@@ -10,6 +8,10 @@ Write-Output @"
 ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝░░░╚═╝░░░░░░░░░╚═════╝░░╚═════╝░╚═╝╚══════╝╚═════╝░
 
 "@
+
+if([bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -notmatch "S-1-5-32-544")){
+    throw "This script must be run with elevated privileges."
+}
 
 Write-Output "Installing Chocolatey"
 Invoke-Expression (Invoke-RestMethod "https://community.chocolatey.org/install.ps1")
@@ -41,8 +43,7 @@ if ($somePackageValidationFailed) {
 }
 
 if ($choice -ne "y") {
-    Write-Error "Verify your package list and try again"
-    return
+    throw "Verify your package list and try again"
 } 
 
 try {
