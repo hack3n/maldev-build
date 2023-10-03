@@ -59,5 +59,8 @@ catch {
     throw "Failure to install packages"
 }
 
+Write-Host "Add exclusion to we can pull the Defender kill script"
+Add-MpPreference -ExclusionPath "$env:temp"
+
 Write-Host "Pulling and running Defender removal script"
 (New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/hack3n/maldev-build/main/kill-defender.ps1', "$env:temp/kill-defender.ps1")
