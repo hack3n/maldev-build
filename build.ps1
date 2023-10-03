@@ -1,10 +1,14 @@
+#Requires -RunAsAdministrator
+
 Write-Output @"
+
 ███╗░░░███╗░█████╗░██╗░░░░░██████╗░███████╗██╗░░░██╗░░░░░░██████╗░██╗░░░██╗██╗██╗░░░░░██████╗░
 ████╗░████║██╔══██╗██║░░░░░██╔══██╗██╔════╝██║░░░██║░░░░░░██╔══██╗██║░░░██║██║██║░░░░░██╔══██╗
 ██╔████╔██║███████║██║░░░░░██║░░██║█████╗░░╚██╗░██╔╝█████╗██████╦╝██║░░░██║██║██║░░░░░██║░░██║
 ██║╚██╔╝██║██╔══██║██║░░░░░██║░░██║██╔══╝░░░╚████╔╝░╚════╝██╔══██╗██║░░░██║██║██║░░░░░██║░░██║
 ██║░╚═╝░██║██║░░██║███████╗██████╔╝███████╗░░╚██╔╝░░░░░░░░██████╦╝╚██████╔╝██║███████╗██████╔╝
 ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝░░░╚═╝░░░░░░░░░╚═════╝░░╚═════╝░╚═╝╚══════╝╚═════╝░
+
 "@
 
 Write-Output "Installing Chocolatey"
@@ -16,9 +20,7 @@ $somePackageValidationFailed = $false
 
 Write-Output "Checking packages are valid...`n"
 foreach ($package in $inputPackages) {
-    $result = choco find $package
-
-    if ($result.Length -gt 2) {
+    if ((choco find $package).Length -gt 2) {
         $validPackages = $validPackages + $package
         Write-Output $package + ' - ok'
     }
