@@ -46,11 +46,17 @@ A PowerShell script to get basic malware development tooling configured.
 
 ### Installation
 
-Start with a clean Windows VM, then run `build.ps1`.
+Start with a clean Windows VM, disable "Tamper Protection", then run the below in an elevated PowerShell.
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process
 Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/hack3n/maldev-build/main/build.ps1")
 ```
+
+To permanently disable Microsoft Defender:
+ - Open Local Group Policy Editor (type gpedit in the search box)
+ - Computer Configuration > Administrative Templates > Windows Components > Microsoft Defender Antivirus
+ - Enable Turn off Microsoft Defender Antivirus
+ - Reboot
 
 ## License
 

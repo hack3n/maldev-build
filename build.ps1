@@ -59,6 +59,9 @@ catch {
     throw "Failure to install packages"
 }
 
+Write-Host "Install GPO editing module"
+Install-Module -Name PolicyFileEditor -RequiredVersion 3.0.0
+
 Write-Host "Add exclusion and disable realtime protection to we can pull the Defender kill script"
 Add-MpPreference -ExclusionPath "$env:temp"
 Set-MpPreference -DisableRealtimeMonitoring 1

@@ -60,29 +60,7 @@ Set-MpPreference -LowThreatDefaultAction Allow -ErrorAction SilentlyContinue
 Set-MpPreference -ModerateThreatDefaultAction Allow -ErrorAction SilentlyContinue
 Set-MpPreference -HighThreatDefaultAction Allow -ErrorAction SilentlyContinue
 
-
-# if ($IsSystem) {
-
-#     # Configure the Defender registry to disable it (and the TamperProtection)
-#     # editing HKLM:\SOFTWARE\Microsoft\Windows Defender\ requires to be SYSTEM
-
-#     Write-Host "    [+] Disable all functionalities with registry keys (SYSTEM privilege)"
-
-#     # Cloud-delivered protection:
-#     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" -Name SpyNetReporting -Value 0
-#     # Automatic Sample submission
-#     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" -Name SubmitSamplesConsent -Value 0
-#     # Tamper protection
-#     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender\Features" -Name TamperProtection -Value 4
-        
-#     # Disable in registry
-#     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1
-#     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1
-
-# }
-# else {
-#     Write-Host "    [W] (Optional) Cannot configure registry (not SYSTEM)"
-# }
+Write-Host "    [+] Refer to the README to finalise disabling Defender" -BackgroundColor DarkRed -ForegroundColor White
 
 Write-Host ""
 Read-Host -Prompt "Press any key to continue"
