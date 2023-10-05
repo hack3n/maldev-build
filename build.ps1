@@ -18,7 +18,7 @@ if (-Not $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Adm
 Write-Host "Installing Chocolatey"
 Invoke-Expression (Invoke-RestMethod "https://community.chocolatey.org/install.ps1")
 
-$inputPackages = $("git", "sysinternals", "vscode", "visualstudio2022community", "googlechrome", "sublimetext3")
+$inputPackages = $("git", "sysinternals", "vscode", "visualstudio2022community", "googlechrome", "sublimetext3", "nmap")
 $validPackages = @()
 $somePackageValidationFailed = $false
 
@@ -58,9 +58,6 @@ try {
 catch {
     throw "Failure to install packages"
 }
-
-Write-Host "Install GPO editing module"
-Install-Module -Name PolicyFileEditor -RequiredVersion 3.0.0
 
 Write-Host "Add exclusion and disable realtime protection to we can pull the Defender kill script"
 Add-MpPreference -ExclusionPath "$env:temp"
