@@ -18,7 +18,7 @@ if (-Not $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Adm
 Write-Host "Installing Chocolatey"
 Invoke-Expression (Invoke-RestMethod "https://community.chocolatey.org/install.ps1")
 
-$inputPackages = $("git", "sysinternals", "vscode", "visualstudio2022community", "googlechrome", "sublimetext3", "nmap")
+$inputPackages = $("git", "sysinternals", "vscode", "visualstudio2022community", "googlechrome", "sublimetext3", "nmap", "golang")
 $validPackages = @()
 $somePackageValidationFailed = $false
 
