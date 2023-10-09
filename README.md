@@ -36,8 +36,7 @@
 A PowerShell script to get basic malware development tooling configured.
  - [x] Installs Visual Studio + Visual Studio Code
  - [x] Installs debugging tools and utilities like SysInternals
- - [x] Installs Google Chrome
- - [x] Installs nmap
+ - [x] Installs Google Chrome, nmap, and [Freeze](https://github.com/Tylous/Freeze)
 
 ### Built With
 
