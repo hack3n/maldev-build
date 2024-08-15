@@ -75,5 +75,5 @@ Project Link: [https://github.com/hack3n/maldev-build](https://github.com/hack3n
 [license-url]: https://github.com/hack3n/maldev-build/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/liam-o-brien-017aa6178/
-[Chocolatey-img]: https://chocolatey.org/
-[Chocolatey-url]: https://img.shields.io/badge/Chocolatey-black.svg?style=for-the-badge&logo=chocolatey&logoColor=white
+[Chocolatey-img]: https://img.shields.io/badge/Chocolatey-black.svg?style=for-the-badge&logo=chocolatey&logoColor=white
+[Chocolatey-url]: https://chocolatey.org/
